@@ -1,31 +1,36 @@
 package umc.spring.domain.mapping;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import umc.spring.domain.common.BaseEntity;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Review {
+public class Review extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "userId")
+    private User userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id")
-    private Restaurants restaurant;
+    @JoinColumn(name = "restaurantId")
+    private Restaurants restaurantId;
 
-    @Column(length = 13)
+    @Column(length = 20)
+    @NotNull
     private String contents;
 
     @Column(nullable = false)
+    @NotNull
     private double rate;
 
     @Lob

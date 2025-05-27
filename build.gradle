@@ -52,12 +52,14 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.32'
 
 	// Documentation
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
-	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.9'
+	//implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+	//implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.9'
 
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
 }
 
 // QueryDSL Q파일 생성 경로 설정

@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.GenderState;
 import umc.spring.domain.enums.UserState;
@@ -18,6 +20,8 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
+@DynamicUpdate
+@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class User extends BaseEntity {
@@ -25,7 +29,7 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "login_id", length = 12, nullable = false)
+    @Column(name = "loginId", length = 12, nullable = false)
     private String loginId;
 
     @Column(length = 16, nullable = false)
@@ -54,9 +58,9 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(10) DEFAULT 'ACTIVE'")
     private UserState state;
 
-    @Column(name = "inactive_date")
+    @Column(name = "inactiveDate")
     private LocalDate inactiveDate;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userId")
     private List<UserMission> userMissions;
 }

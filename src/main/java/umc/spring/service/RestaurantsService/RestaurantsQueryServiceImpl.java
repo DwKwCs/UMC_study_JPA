@@ -14,16 +14,16 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class RestaurantsQueryServiceImpl implements RestaurantsQueryService {
 
-    private final RestaurantsRepository RestaurantsRepository;
+    private final RestaurantsRepository restaurantsRepository;
 
     @Override
     public Optional<Restaurants> findRestaurants(Long id) {
-        return RestaurantsRepository.findById(id);
+        return restaurantsRepository.findById(id);
     }
 
     @Override
     public List<Restaurants> findRestaurantsByNameAndRate(String name, Float rate) {
-        List<Restaurants> filteredRestaurants = RestaurantsRepository.dynamicQueryWithBooleanBuilder(name, rate);
+        List<Restaurants> filteredRestaurants = restaurantsRepository.dynamicQueryWithBooleanBuilder(name, rate);
 
         filteredRestaurants.forEach(Restaurants -> System.out.println("Rate: " + rate));
 

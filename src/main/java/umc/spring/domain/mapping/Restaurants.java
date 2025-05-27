@@ -36,7 +36,7 @@ public class Restaurants {
     @Column(columnDefinition = "VARCHAR(10) DEFAULT 'CLOSED'")
     private RestaurantsState state;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurantId")
     private List<Review> reviews;
 
     @Override

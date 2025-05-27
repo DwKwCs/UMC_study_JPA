@@ -6,6 +6,7 @@ import umc.spring.domain.enums.MissionState;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -16,12 +17,12 @@ public class UserMission {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "userId")
+    private User userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mission_id")
-    private Mission mission;
+    @JoinColumn(name = "missionId")
+    private Mission missionId;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10) DEFAULT 'NOTYET'")
