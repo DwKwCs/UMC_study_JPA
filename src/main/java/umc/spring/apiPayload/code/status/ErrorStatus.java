@@ -20,9 +20,13 @@ public enum ErrorStatus implements BaseErrorCode {
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "사용자가 없습니다."),
     NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "MEMBER4002", "닉네임은 필수 입니다."),
 
+    // MY 에러처리
     RESTAURANT_NOT_FOUND(HttpStatus.BAD_REQUEST, "RESTAURANT4001", "음식점이 없습니다."),
     MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION4001", "미션이 없습니다."),
     ALREADY_CHALLENGED_MISSION(HttpStatus.BAD_REQUEST, "MISSION4002", "이미 등록된 미션입니다."),
+    PAGING_ERROR(HttpStatus.BAD_REQUEST, "PAGING4001", "잘못된 Page 번호입니다."),
+    USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "USER4001", "유저가 없습니다."),
+    INPROGRESS_USER_MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST, "INPROGRESS_USERMISSION4001", "유저의 진행중인 미션이 없습니다."),
 
     // 예시,,,
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "ARTICLE4001", "게시글이 없습니다."),

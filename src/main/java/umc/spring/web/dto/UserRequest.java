@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class UserRequest {
 
     @Getter
-    public static class joinDto{
+    public static class UserDto {
         Long loginId;
         String password;
         String phone;

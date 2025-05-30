@@ -14,7 +14,7 @@ public class UserResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class JoinResultDTO{
+    public static class UserResultDTO {
         Long loginId;
         String password;
         String phone;

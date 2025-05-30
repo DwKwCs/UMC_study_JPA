@@ -1,10 +1,14 @@
 package umc.spring.service.RestaurantsService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.spring.domain.mapping.Restaurants;
+import umc.spring.domain.mapping.Review;
 import umc.spring.repository.RestaurantsRepository.RestaurantsRepository;
+import umc.spring.repository.ReviewRepository.ReviewRepository;
 
 import java.util.List;
 import java.util.Optional;

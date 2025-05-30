@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import umc.spring.apiPayload.ApiResponse;
 import umc.spring.apiPayload.code.ErrorReasonDTO;
 import umc.spring.apiPayload.code.status.ErrorStatus;
+import umc.spring.validation.exception.InvalidPageException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -108,6 +109,19 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                                                                      HttpHeaders headers, WebRequest request) {
         ApiResponse<Object> body = ApiResponse.onFailure(errorCommonStatus.getCode(), errorCommonStatus.getMessage(), null);
         return super.handleExceptionInternal(
+                e,
+                body,
+                headers,
+                errorCommonStatus.getHttpStatus(),
+                request
+        );
+    }
+
+    @ExceptionHandler(value = InvalidPageException.class)
+    public ResponseEntity<Object> handleInvalidPage(InvalidPageException e, ErrorStatus errorCommonStatus,
+                                                    HttpHeaders headers, WebRequest request) {
+        ApiResponse<Object> body = ApiResponse.onFailure(errorCommonStatus.getCode(), errorCommonStatus.getMessage(), null);
+        return handleExceptionInternal(
                 e,
                 body,
                 headers,

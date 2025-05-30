@@ -21,7 +21,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     private final RestaurantsRepository restaurantsRepository;
 
     @Override
-    public Review joinReview(ReviewRequest.reviewDto request, Long userId, Long restaurantId) {
+    public Review joinReview(ReviewRequest.ReviewDto request, Long userId, Long restaurantId) {
         Review newReview = ReviewConverter.toReview(request);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new TempHandler(ErrorStatus.MEMBER_NOT_FOUND));

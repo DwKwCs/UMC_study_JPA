@@ -16,6 +16,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    /*
     @Bean
     public CommandLineRunner run(ApplicationContext context) {
         return args -> {
@@ -34,4 +35,5 @@ public class Application {
                     .forEach(System.out::println);
         };
     }
+    */
 }

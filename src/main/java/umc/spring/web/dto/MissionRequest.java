@@ -5,7 +5,7 @@ import lombok.Getter;
 public class MissionRequest {
 
     @Getter
-    public static class missionDto{
+    public static class MissionDto {
         String title;
         String contents;
         String phone;

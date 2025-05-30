@@ -6,6 +6,6 @@ import umc.spring.domain.mapping.UserMission;
 import umc.spring.web.dto.MissionRequest;
 
 public interface MissionCommandService {
-    Mission joinMission(MissionRequest.missionDto request, Long restaurantId);
-    UserMission addChallenge(Long userId, Long missionId);
+    Mission joinMission(MissionRequest.MissionDto request, Long restaurantId);
+    boolean isMissionExist(Long id);
 }

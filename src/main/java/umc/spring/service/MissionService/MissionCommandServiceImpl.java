@@ -20,14 +20,12 @@ import umc.spring.web.dto.MissionRequest;
 @Service
 @RequiredArgsConstructor
 public class MissionCommandServiceImpl implements MissionCommandService {
-    private final UserRepository userRepository;
     private final MissionRepository missionRepository;
     private final RestaurantsRepository restaurantsRepository;
-    private final UserMissionRepository userMissionRepository;
 
     @Transactional
     @Override
-    public Mission joinMission(MissionRequest.missionDto request, Long restaurantId) {
+    public Mission joinMission(MissionRequest.MissionDto request, Long restaurantId) {
         Mission newMission = MissionConverter.toMission(request);
         Restaurants restaurant = restaurantsRepository.findById(restaurantId)
                 .orElseThrow(() -> new TempHandler(ErrorStatus.RESTAURANT_NOT_FOUND));
@@ -36,19 +34,8 @@ public class MissionCommandServiceImpl implements MissionCommandService {
         return missionRepository.save(newMission);
     }
 
-    @Transactional
     @Override
-    public UserMission addChallenge(Long userId, Long missionId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new TempHandler(ErrorStatus.MEMBER_NOT_FOUND));
-        Mission mission = missionRepository.findById(missionId)
-                .orElseThrow(() -> new TempHandler(ErrorStatus.MISSION_NOT_FOUND));
-        UserMission newUserMission = UserMission.builder()
-                .state(MissionState.INPROGRESS)
-                .build();
-        newUserMission.setUserId(user);
-        newUserMission.setMissionId(mission);
-
-        return userMissionRepository.save(newUserMission);
+    public boolean isMissionExist(Long id) {
+        return missionRepository.existsById(id);
     }
 }

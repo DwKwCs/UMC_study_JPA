@@ -12,8 +12,6 @@ import umc.spring.validation.annotation.ChallengeableMission;
 @Component
 @RequiredArgsConstructor
 public class ChallengeableMissionValidator implements ConstraintValidator<ChallengeableMission, Long> {
-
-    private final MissionCommandService missionCommandService;
     private final MissionQueryService missionQueryService;
 
     @Override

@@ -5,7 +5,7 @@ import lombok.Getter;
 public class ReviewRequest {
 
     @Getter
-    public static class reviewDto{
+    public static class ReviewDto {
         String contents;
         Double rate;
     }
