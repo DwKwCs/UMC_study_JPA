@@ -6,6 +6,9 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -14,25 +17,29 @@ import umc.spring.apiPayload.ApiResponse;
 import umc.spring.converter.MissionConverter;
 import umc.spring.converter.ReviewConverter;
 import umc.spring.converter.UserMissionConverter;
+import umc.spring.converter.UserConverter;
 import umc.spring.domain.mapping.Review;
+import umc.spring.domain.mapping.User;
 import umc.spring.domain.mapping.UserMission;
 import umc.spring.service.ReviewService.ReviewQueryService;
 import umc.spring.service.UserMissionService.UserMissionCommandService;
 import umc.spring.service.UserMissionService.UserMissionQueryService;
+import umc.spring.service.UserService.UserCommandService;
+import umc.spring.service.UserService.UserQueryService;
 import umc.spring.validation.annotation.ExistUser;
 import umc.spring.validation.annotation.Page1Based;
-import umc.spring.web.dto.AddChallengeResponse;
-import umc.spring.web.dto.MissionResponse;
-import umc.spring.web.dto.ReviewResponse;
+import umc.spring.web.dto.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/users")
 @Validated
 public class UserRestController {
     private final ReviewQueryService reviewQueryService;
     private final UserMissionQueryService userMissionQueryService;
     private final UserMissionCommandService userMissionCommandService;
+    private final UserCommandService userCommandService;
+    private final UserQueryService userQueryService;
 
     @PostMapping("/{userId}/addMission")
     public ApiResponse<AddChallengeResponse.AddChallengeResponseDto> addChallenge(
@@ -102,5 +109,27 @@ public class UserRestController {
             @Page1Based Integer page) {
         Page<UserMission> userInprogressMissionList = userMissionQueryService.getUserInprogressMissionList(userId, page);
         return ApiResponse.onSuccess(UserMissionConverter.userMissionPreviewListDTO(userInprogressMissionList));
+    }
+
+    @PostMapping("/join")
+    @Operation(summary = "유저 회원가입 API",description = "유저가 회원가입하는 API입니다.")
+    public ApiResponse<UserResponse.UserResultDTO> login(@RequestBody @Valid UserRequest.UserDto request) {
+        User user = userCommandService.joinUser(request);
+        return ApiResponse.onSuccess(UserConverter.toUserResultDTO(user));
+    }
+
+    @PostMapping("/login")
+    @Operation(summary = "유저 로그인 API",description = "유저가 로그인하는 API입니다.")
+    public ApiResponse<UserResponse.LoginResultDTO> login(@RequestBody @Valid UserRequest.LoginRequestDTO request) {
+        return ApiResponse.onSuccess(userCommandService.loginUser(request));
+    }
+
+    @GetMapping("/info")
+    @Operation(summary = "유저 내 정보 조회 API - 인증 필요",
+            description = "유저가 내 정보를 조회하는 API입니다.",
+            security = { @SecurityRequirement(name = "JWT TOKEN") }
+    )
+    public ApiResponse<UserResponse.UserInfoDTO> getMyInfo(HttpServletRequest request) {
+        return ApiResponse.onSuccess(userQueryService.getUserInfo(request));
     }
 }

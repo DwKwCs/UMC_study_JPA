@@ -12,6 +12,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.GenderState;
+import umc.spring.domain.enums.Role;
 import umc.spring.domain.enums.UserState;
 
 import java.time.LocalDate;
@@ -32,7 +33,7 @@ public class User extends BaseEntity {
     @Column(name = "loginId", length = 12, nullable = false)
     private String loginId;
 
-    @Column(length = 16, nullable = false)
+    @Column(length = 100, nullable = false)
     private String password;
 
     @Column(length = 13)
@@ -40,6 +41,9 @@ public class User extends BaseEntity {
 
     @Column(length = 4)
     private String name;
+
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Column(length = 50)
     private String address;
@@ -63,4 +67,11 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "userId")
     private List<UserMission> userMissions;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 }
